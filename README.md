@@ -1,7 +1,3 @@
-Based on the code you've shared, here's how the README could look to provide a clear and detailed description of the `robot_status_estimation` package, especially for those looking to understand the purpose and functionality of the various Python scripts and components.
-
----
-
 # Robot Status Estimation
 
 This package, **robot\_status\_estimation**, simulates a multi-agent environment using the **turtlesim** package. It estimates and fuses the belief states of multiple agents in a robotic system, using Bayesian updates based on noisy observations. The system is designed to work in a ROS (Robot Operating System) setup.
@@ -44,7 +40,7 @@ To use the package, follow these steps to install it in your ROS workspace:
 
    ```bash
    cd ~/catkin_ws/src
-   git clone https://github.com/your_username/robot_status_estimation.git
+   git clone https://github.com/sankalp22445/robot_status_estimation.git
    ```
 
 2. Install the required dependencies:
@@ -150,11 +146,3 @@ rosdep install --from-paths src --ignore-src -r -y
 ```
 
 ---
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to tweak the README further if you'd like to add more information, such as specific use cases, visualizations, or advanced configurations!
