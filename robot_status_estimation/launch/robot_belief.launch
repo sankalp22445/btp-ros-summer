@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- Start turtlesim simulation -->
+  <node pkg="turtlesim" type="turtlesim_node" name="sim" output="screen"/>
+
+  <!-- Your belief robot node -->
+  <node pkg="robot_status_estimation" type="belief_main_robot.py" name="belief_main_robot" output="screen"/>
+
+  <!-- Belief fusion node -->
+  <node pkg="robot_status_estimation" type="belief_fusion_node.py" name="belief_fusion_node" output="screen"/>
+  
+</launch>
