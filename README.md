@@ -73,7 +73,7 @@ To install the `robot_status_estimation` package, follow these steps:
 
    ```bash
    cd ~/catkin_ws/src
-   git clone https://github.com/your_username/robot_status_estimation.git
+   git clone https://github.com/sankalp22445/robot_status_estimation.git
    ```
 
 2. **Install dependencies** using `rosdep`:
