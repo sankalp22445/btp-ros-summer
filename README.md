@@ -21,14 +21,17 @@ This package, **robot\_status\_estimation**, simulates a multi-agent environment
 
 ---
 
-## Overview
+Overview
+The robot_status_estimation package enables multi-agent belief estimation using Bayesian updates and belief fusion in a turtlesim simulation environment.
 
-The **robot\_status\_estimation** package implements a system that tracks and updates beliefs about the status (alive or dead) of different agents in a multi-agent environment. This is achieved through:
+Core Features:
+Agent Simulation: Simulates multiple agents (turtles) that have initial beliefs about the status of other agents (alive or dead).
 
-1. **Bayesian belief update**: Each agent has a belief about the status of other agents. This belief is updated based on noisy observations of their true states.
-2. **Belief fusion**: Beliefs from different agents are fused to produce a more accurate estimation of each agent's status.
+Belief Update: Each agent updates its belief about the status of other agents using a Bayesian update formula based on noisy observations.
 
-The package integrates the **turtlesim** simulation to visualize the agents and their movements, and uses ROS topics to communicate beliefs.
+Belief Fusion: Aggregates the beliefs from all agents using a simple averaging technique to produce a fused belief per agent.
+
+Logging: Records the beliefs and state updates in CSV files for later analysis.
 
 ---
 
