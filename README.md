@@ -42,46 +42,39 @@ The **robot_status_estimation** package enables simulation and belief estimation
 
 ## 🔍 Detailed Explanation
 
-### Bayesian Belief Update
-
-Each agent is assigned a **hidden binary state**: `1` for alive, `0` for dead. The main robot (`turtle1`) visits each agent and makes a **noisy observation** of its state.
-
-The system uses **Bayes’ Theorem** to update its belief after each observation.
-
----
-
-### 🔣 Belief Update Equation
-
-The **Bayesian update rule** is used:
-
-\[
-P(H \mid E) = \frac{P(E \mid H) \cdot P(H)}{P(E \mid H) \cdot P(H) + P(E \mid \neg H) \cdot (1 - P(H))}
-\]
-
+The Bayesian update rule is used:
+P(H|E) = P(E|H)P(H)P(E∣H)P(H) + P(E∣¬H)(1-P(H))
 Where:
+P(H): Prior belief (initially 0.5)
 
-- \( P(H) \): Prior belief (initially 0.5)  
-- \( P(E \mid H) \): Likelihood of observation given hypothesis (sensor accuracy)  
-- \( P(E \mid \neg H) \): Likelihood of observation given the hypothesis is false  
-- \( P(H \mid E) \): Posterior belief after observation  
 
-**Example Calculation:**
+P(E|H): Likelihood of observation given hypothesis (sensor accuracy)
 
-Given:
 
-- Prior belief: \( P(H) = 0.5 \)  
-- Sensor accuracy:  
-  - \( P(E=1 \mid H=1) = 0.8 \) (True positive rate)  
-  - \( P(E=1 \mid H=0) = 0.2 \) (False positive rate)  
-- Observation = `alive` (1)
+P(E|¬H): Likelihood of observation given the hypothesis is false
 
-Then:
 
-\[
-P(\text{Alive} \mid 1) = \frac{0.8 \cdot 0.5}{0.8 \cdot 0.5 + 0.2 \cdot (1 - 0.5)} = \frac{0.4}{0.4 + 0.1} = \frac{0.4}{0.5} = 0.8
-\]
+P(H|E): Posterior belief after observation
 
----
+
+Example Calculation:
+Prior belief P(H)=0.5
+Sensor accuracy:
+
+
+P(E=1|H=1)=0.8 (observation alive given alive)
+
+
+P(E=1|H=0)=0.2 (false positive rate)
+
+
+Observation = alive (1)
+
+
+Then,
+P(Alive∣1) = 0.80.50.80.5 + 0.2(1-0.5) = 0.40.4 + 0.1 = 0.40.5 = 0.8
+So, after observing the agent as "alive", the belief that the agent is alive increases to 0.8.
+
 
 ---
 
