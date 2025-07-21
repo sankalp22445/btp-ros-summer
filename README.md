@@ -1,7 +1,3 @@
-Absolutely! Below is a complete, updated, and clean `README.md` tailored to your current `robot_status_estimation` package. It’s organized in the style you described, includes structured headings, and is ready for GitHub.
-
----
-
 ````markdown
 # 🤖 Robot Status Estimation (Bayesian Belief Update in ROS)
 
@@ -215,12 +211,4 @@ GitHub: [sankalp22445](https://github.com/sankalp22445)
 
 ---
 
-```
 
-Let me know if you'd like:
-- A badge section for ROS version/build status
-- A `requirements.txt` (for non-ROS dependencies)
-- A GIF or screenshot embedded for GitHub
-
-I can also generate a `.pdf` version of this if needed.
-```
