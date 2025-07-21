@@ -164,10 +164,9 @@ robot_status_estimation/
 │   └── robot_belief.launch            # Launches simulation and main node
 ├── scripts/
 │   └── belief_main_robot.py          # Main robot node for movement + belief update
-├── log/
-│   └── belief_log_TIMESTAMP.csv      # Auto-generated log files
 ├── CMakeLists.txt
 └── package.xml
+└── belief_log_TIMESTAMP.csv      # Auto-generated log files
 ```
 
 ---
