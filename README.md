@@ -47,6 +47,8 @@ P(H|E) = P(E|H)P(H)P(E∣H)P(H) + P(E∣¬H)(1-P(H))
 
 
 Where:
+
+
 P(H): Prior belief (initially 0.5)
 
 
@@ -116,7 +118,7 @@ roslaunch robot_status_estimation robot_belief.launch
 This will:
 
 - Launch the `turtlesim` simulation
-- Spawn the main robot (`turtle1`) and 4 agents (`turtle2–turtle5`)
+- Spawn the main robot (`turtle1`) and 5 agents (`turtle2–turtle6`)
 - Start the Bayesian belief update node
 - Publish belief updates to `/agent/belief`
 
