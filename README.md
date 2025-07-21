@@ -48,30 +48,37 @@ The system uses **Bayes’ Theorem** to update its belief:
 
 ### 🔣 Belief Update Equation
 
-Bayes’ Rule:
-
-\[
-P(H \mid E) = \frac{P(E \mid H) \cdot P(H)}{P(E \mid H) \cdot P(H) + P(E \mid \neg H) \cdot (1 - P(H))}
-\]
-
+The Bayesian update rule is used:
+P(H|E) = P(E|H)P(H)P(E∣H)P(H) + P(E∣¬H)(1-P(H))
 Where:
-- \( P(H) \): Prior belief (initially 0.5)
-- \( P(E \mid H) \): Likelihood of observation if agent is **alive** (e.g., sensor accuracy = 0.8)
-- \( P(E \mid \neg H) \): Likelihood of observation if agent is **dead**
-- \( P(H \mid E) \): Updated belief after observation
+P(H): Prior belief (initially 0.5)
 
-#### Example:
 
-If:
-- Prior = 0.5  
-- Sensor accuracy = 0.8  
-- Observation = alive (`1`)
+P(E|H): Likelihood of observation given hypothesis (sensor accuracy)
 
-Then:
 
-\[
-P(\text{Alive} \mid 1) = \frac{0.8 \cdot 0.5}{0.8 \cdot 0.5 + 0.2 \cdot 0.5} = \frac{0.4}{0.4 + 0.1} = 0.8
-\]
+P(E|¬H): Likelihood of observation given the hypothesis is false
+
+
+P(H|E): Posterior belief after observation
+
+
+Example Calculation:
+Prior belief P(H)=0.5
+Sensor accuracy:
+
+
+P(E=1|H=1)=0.8 (observation alive given alive)
+
+
+P(E=1|H=0)=0.2 (false positive rate)
+
+
+Observation = alive (1)
+
+
+Then,
+P(Alive∣1) = 0.80.50.80.5 + 0.2(1-0.5) = 0.40.4 + 0.1 = 0.40.5 = 0.8
 
 ---
 
@@ -162,7 +169,7 @@ robot_status_estimation/
 
 ### 🔹 belief_main_robot.py
 
-- Spawns 4 agents at random positions
+- Spawns 5 agents at random positions
 - Assigns each a true state (alive or dead)
 - Main robot (`turtle1`) moves to each agent’s location
 - Makes a noisy observation (e.g., 60% accuracy)
