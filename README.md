@@ -205,8 +205,6 @@ This project is licensed under the MIT License.
 ## 👨‍💻 Author
 
 **Sankalp Raj**  
-📧 [sankalp.raj@email.com](mailto:sankalp.raj@email.com)  
-GitHub: [sankalp22445](https://github.com/sankalp22445)
 
 ---
 
