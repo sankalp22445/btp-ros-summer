@@ -1,136 +1,226 @@
-You're welcome! Here's a clean, informative, and ROS-friendly `README.md` for your GitHub repository:
+Absolutely! Below is a complete, updated, and clean `README.md` tailored to your current `robot_status_estimation` package. It’s organized in the style you described, includes structured headings, and is ready for GitHub.
 
 ---
 
-```markdown
-# 🐢 Bayesian Belief Update with Turtlesim (ROS)
+````markdown
+# 🤖 Robot Status Estimation (Bayesian Belief Update in ROS)
 
-This project demonstrates a simple **Bayesian filter** for probabilistic state estimation using ROS and Turtlesim. A main robot navigates through a 2D grid and attempts to identify whether randomly placed agents (other turtles) are **alive** or **dead** based on **noisy observations**. The robot updates its belief using **Bayes' Rule** and logs its reasoning.
-
----
-
-## 📌 Features
-
-- 🧭 **Main robot** (`turtle1`) navigates in a 2D grid (9×9).
-- 🧍‍♂️ **4 agents** (`turtle2` to `turtle5`) are spawned at random positions.
-- 🎯 Each agent has a hidden binary state: `alive` (1) or `dead` (0).
-- 🔍 Robot senses each agent with noisy observations.
-- 🧠 **Bayesian belief update** after each observation.
-- 📢 Beliefs are published on `/agent/belief`.
-- 📁 Belief history logged in a `.csv` file.
+This package, **robot_status_estimation**, simulates a multi-agent environment using the **Turtlesim** simulator in ROS. It estimates and updates the belief states (alive/dead) of multiple agents using **Bayesian filtering** based on noisy observations. It includes belief sharing and logging mechanisms and is ideal for learning and demonstrating probabilistic robotics in a ROS environment.
 
 ---
 
-## 📁 Project Structure
+## 📚 Table of Contents
 
-```
+- [Overview](#overview)
+- [Detailed Explanation](#detailed-explanation)
+  - [Bayesian Belief Update](#bayesian-belief-update)
+  - [Belief Update Equation](#belief-update-equation)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Running the Launch File](#running-the-launch-file)
+  - [Logging Behavior](#logging-behavior)
+- [Package Structure](#package-structure)
+- [Scripts](#scripts)
+- [Dependencies](#dependencies)
+- [License](#license)
 
-catkin\_ws/
-└── src/
-└── door\_state\_estimation/
-├── scripts/
-│   ├── belief\_main\_robot.py
-│   └── spawn\_agents.py
-├── launch/
-│   └── bayes\_filter\_demo.launch
-├── log/
-│   └── belief\_log.csv
-├── CMakeLists.txt
-└── package.xml
+---
 
+## 🧠 Overview
+
+The **robot_status_estimation** package enables simulation and belief estimation for multiple agents in a ROS-based 2D world. The goal is to simulate uncertainty and sensor noise, then use **Bayesian reasoning** to update the robot’s belief in the true state of each agent.
+
+### Core Features
+
+- **Multi-Agent Simulation** using `turtlesim`
+- **Belief Update** via Bayesian filtering
+- **Randomized agent states** (alive/dead)
+- **Sensor noise simulation**
+- **Real-time CSV logging**
+- **Belief sharing via ROS topics**
+
+---
+
+## 🔍 Detailed Explanation
+
+### Bayesian Belief Update
+
+Each agent is assigned a **hidden binary state**: `1` for alive, `0` for dead. The main robot (`turtle1`) visits each agent and makes a **noisy observation** of its state.
+
+The system uses **Bayes’ Theorem** to update its belief:
+
+### 🔣 Belief Update Equation
+
+Bayes’ Rule:
+
+\[
+P(H \mid E) = \frac{P(E \mid H) \cdot P(H)}{P(E \mid H) \cdot P(H) + P(E \mid \neg H) \cdot (1 - P(H))}
+\]
+
+Where:
+- \( P(H) \): Prior belief (initially 0.5)
+- \( P(E \mid H) \): Likelihood of observation if agent is **alive** (e.g., sensor accuracy = 0.8)
+- \( P(E \mid \neg H) \): Likelihood of observation if agent is **dead**
+- \( P(H \mid E) \): Updated belief after observation
+
+#### Example:
+
+If:
+- Prior = 0.5  
+- Sensor accuracy = 0.8  
+- Observation = alive (`1`)
+
+Then:
+\[
+P(\text{Alive} \mid 1) = \frac{0.8 \cdot 0.5}{0.8 \cdot 0.5 + 0.2 \cdot 0.5} = \frac{0.4}{0.4 + 0.1} = 0.8
+\]
+
+---
+
+## 🔧 Installation
+
+### 1. Clone the Repository
+
+```bash
+cd ~/catkin_ws/src
+git clone https://github.com/sankalp22445/robot_status_estimation.git
 ````
 
----
-
-## 🚀 How to Run
-
-### 1. Setup
-
-Make sure you have a working ROS installation (`melodic`, `noetic`, etc.).
+### 2. Install Dependencies
 
 ```bash
 cd ~/catkin_ws
-catkin_make
-source devel/setup.bash
-````
+rosdep install --from-paths src --ignore-src -r -y
+```
 
-### 2. Launch the Simulation
+### 3. Build the Workspace
 
 ```bash
-roslaunch door_state_estimation bayes_filter_demo.launch
+catkin_make
+source devel/setup.bash
+```
+
+---
+
+## 🚀 Usage
+
+### 🔁 Running the Launch File
+
+```bash
+roslaunch robot_status_estimation robot_belief.launch
 ```
 
 This will:
 
-* Launch `turtlesim_node`
-* Spawn `turtle1` and 4 agents
-* Start the main robot
-* Begin the belief update process
+* Launch the `turtlesim` simulation
+* Spawn the main robot (`turtle1`) and 4 agents (`turtle2–turtle5`)
+* Start the Bayesian belief update node
+* Publish belief updates to `/agent/belief`
 
 ---
 
-## 📊 Belief Update Equation
+### 📝 Logging Behavior
 
-We use **Bayes' Rule** for each update:
+Each belief update is recorded in a CSV file (auto-created in the home directory):
 
-$$
-P(H|E) = \frac{P(E|H) \cdot P(H)}{P(E|H) \cdot P(H) + P(E|\neg H) \cdot (1 - P(H))}
-$$
+**Sample CSV Header:**
 
-Where:
+```csv
+Time,Agent,TrueState,Observed,Prior,UpdatedBelief
+```
 
-* $P(H)$: prior belief (default 0.5)
-* $P(E|H)$: sensor accuracy (e.g. 0.8)
-* $P(H|E)$: updated belief
+**Example:**
 
----
+```csv
+37.50,turtle2,1,1,0.50,0.80
+```
 
-## 📈 Example Log (CSV)
+The log includes:
 
-Each row in `log/belief_log.csv` records:
-
-| Time  | Agent   | TrueState | Observed | Prior | UpdatedBelief |
-| ----- | ------- | --------- | -------- | ----- | ------------- |
-| 23.51 | turtle2 | 1         | 1        | 0.5   | 0.80          |
-| 31.27 | turtle3 | 0         | 1        | 0.5   | 0.28          |
+* Actual state of the agent (ground truth)
+* Noisy observation result
+* Prior belief before update
+* Updated belief after Bayesian filtering
 
 ---
 
-## 📡 ROS Topics
+## 🗂 Package Structure
 
-* `/turtle1/cmd_vel` – Movement of main robot
-* `/agent/belief` – Belief updates about each agent (custom message: string + float)
+```
+robot_status_estimation/
+├── launch/
+│   └── robot_belief.launch            # Launches simulation and main node
+├── scripts/
+│   └── belief_main_robot.py          # Main robot node for movement + belief update
+├── log/
+│   └── belief_log_TIMESTAMP.csv      # Auto-generated log files
+├── CMakeLists.txt
+└── package.xml
+```
 
 ---
 
-## 📚 Dependencies
+## 🧾 Scripts
 
-* ROS (`melodic`, `noetic`, etc.)
+### 🔹 belief\_main\_robot.py
+
+* Spawns 4 agents at random positions
+* Assigns each a true state (alive or dead)
+* Main robot (`turtle1`) moves to each agent’s location
+* Makes a noisy observation (e.g. 60% accuracy)
+* Applies Bayesian update
+* Publishes belief to `/agent/belief`
+* Logs all interactions in a `.csv` file
+
+---
+
+## 📦 Dependencies
+
+Make sure the following ROS packages are installed:
+
+* `rospy`
+* `std_msgs`
+* `geometry_msgs`
 * `turtlesim`
-* Python 3 (`rospy`)
+
+To ensure all dependencies are met:
+
+```bash
+rosdep install --from-paths src --ignore-src -r -y
+```
 
 ---
 
-## 🛠️ To Do / Future Work
+## 🪪 License
 
-* [ ] Multi-step trajectory belief refinement
-* [ ] Add visualization for belief values
-* [ ] Implement belief sharing among multiple robots
-* [ ] Add agent movement and dynamic updates
-* [ ] Add service to reset and re-randomize agent states
+This project is licensed under the MIT License.
 
 ---
 
 ## 👨‍💻 Author
 
 **Sankalp Raj**
-Feel free to contribute, raise issues, or suggest features!
+📧 [sankalp.raj@email.com](mailto:sankalp.raj@email.com) (optional)
+
+GitHub: [sankalp22445](https://github.com/sankalp22445)
 
 ---
 
-## 📜 License
+## 🧭 Future Improvements
 
-This project is released under the MIT License.
+* Add multiple observation rounds to refine beliefs
+* Add visualization for real-time belief changes
+* Introduce agent movement and dynamic behavior
+* Enable belief sharing between agents
 
 ---
 
+```
+
+Let me know if you'd like:
+- A badge section for ROS version/build status
+- A `requirements.txt` (for non-ROS dependencies)
+- A GIF or screenshot embedded for GitHub
+
+I can also generate a `.pdf` version of this if needed.
+```
