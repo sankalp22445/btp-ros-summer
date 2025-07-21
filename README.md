@@ -44,6 +44,8 @@ The **robot_status_estimation** package enables simulation and belief estimation
 
 The Bayesian update rule is used:
 P(H|E) = P(E|H)P(H)P(E∣H)P(H) + P(E∣¬H)(1-P(H))
+
+
 Where:
 P(H): Prior belief (initially 0.5)
 
