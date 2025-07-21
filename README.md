@@ -166,7 +166,7 @@ robot_status_estimation/
 │   └── belief_main_robot.py          # Main robot node for movement + belief update
 ├── CMakeLists.txt
 └── package.xml
-└── belief_log_TIMESTAMP.csv      # Auto-generated log files
+├── belief_log_TIMESTAMP.csv      # Auto-generated log files
 ```
 
 ---
